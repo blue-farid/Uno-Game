@@ -56,13 +56,15 @@ public class GamePlay{
         {
             if(!(card.getNumber().equals(number)))
             {
+                Main.mainPart(player);
                 System.out.println("wrong card!");
                 gamePlay(player,0);
                 return;
             }
         }
-        if (!(card.getNumber().equals(number) || card.getColor().equals(color)))
+        if (!(card.getNumber().equals(number) || card.getColor().equals(color) || (card.getNumber().equals("B"))))
         {
+            Main.mainPart(player);
             System.out.println("wrong card!");
             gamePlay(player,0);
             return;
@@ -95,7 +97,7 @@ public class GamePlay{
 
         }
         for (Card card : player.getCards()) {
-            if (card.getNumber().equals(number) || card.getColor().equals(color)) {
+            if (card.getNumber().equals(number) || card.getColor().equals(color) || card.getNumber().equals("B")) {
                 player.playCard(card);
                 return true;
             }
@@ -103,7 +105,7 @@ public class GamePlay{
         Card card = Config.cards.get(random.nextInt(Config.cards.size()));
         player.getCards().add(card);
         System.out.println(player.getUsername() + " has got to take a card.");
-        if (card.getColor().equals(color) || card.getNumber().equals(number)) {
+        if (card.getColor().equals(color) || card.getNumber().equals(number) || card.getNumber().equals("B")) {
             player.playCard(card);
             return true;
         }
@@ -133,7 +135,7 @@ public class GamePlay{
             Config.players.get(choose).getCards().add(card);
         } else if (move.equals("8"))
         {
-            Main.cls();
+            Main.mainPart(player);
             System.out.println("you have another chance (8 card).");
             gamePlay(player,0);
         } else if (move.equals("10"))
@@ -258,16 +260,22 @@ public class GamePlay{
             for (Card card: player.getCards())
             {
                 char c = card.getNumber().charAt(0);
-                if (c > 47 && c < 58)
-                    score += c;
+                if (c > 47 && c < 58) {
+                    if (c == 1)
+                        score += 10;
+                    else {
+                        c -= 48;
+                        score += c;
+                    }
+                }
                 else {
                     c -= 65;
                     c += 11;
                     score += c;
                 }
-                scores.add(score);
-                player.setScore(score);
             }
+            scores.add(score);
+            player.setScore(score);
         }
         Collections.sort(scores);
         for (int i = 0; i < scores.size(); i++)

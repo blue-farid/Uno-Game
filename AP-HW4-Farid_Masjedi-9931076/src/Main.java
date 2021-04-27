@@ -49,13 +49,7 @@ public class Main {
             {
                 for (Player player: Config.players) {
                     if (player.isTurn()) {
-                        cls();
-                        System.out.print("Direction: " + Config.mainDesk.directionToString());
-                        playersCardsRemain();
-                        System.out.println();
-                        System.out.println();
-                        System.out.println(player.getUsername() + "'s turn.");
-                        System.out.println("cards remain: " + player.getCards().size());
+                        mainPart(player);
                         if (player.equals(player1))
                         {
                             GamePlay.gamePlay(player,0);
@@ -63,7 +57,7 @@ public class Main {
                         }
                         else if (GamePlay.botGamePLay(player)) {
                             if (!(Config.mainDesk.getDesk().isSpecial())) {
-                                System.out.println(player.getUsername() + " plays a card (cards).");
+                                System.out.println(player.getUsername() + " plays a card.");
                             }
                             Config.mainDesk.displayDesk();
                         } else
@@ -90,6 +84,7 @@ public class Main {
                 if (winner != null)
                     break;
             }
+            System.out.println(winner + " wins!");
             GamePlay.scoreBoard();
             in.nextLine();
         }
@@ -110,8 +105,10 @@ public class Main {
     {
         if (Config.cardsOnDesk.size() > 4)
         {
-            Config.cards.add(Config.cardsOnDesk.get(0));
-            Config.cardsOnDesk.remove(0);
+            for (int i  = 3; Config.cardsOnDesk.size() - i > 0; i++) {
+                Config.cards.add(Config.cardsOnDesk.get(0));
+                Config.cardsOnDesk.remove(0);
+            }
         }
     }
 
@@ -123,5 +120,18 @@ public class Main {
         {
             System.out.print("{ " + player.getUsername() + " : " + player.getCards().size() + " }    ");
         }
+    }
+    public static Player getWinner() {
+        return winner;
+    }
+
+    public static void mainPart(Player player)
+    {
+        cls();
+        System.out.print("Direction: " + Config.mainDesk.directionToString());
+        playersCardsRemain();
+        System.out.println();
+        System.out.println();
+        System.out.println(player.getUsername() + "'s turn.");
     }
 }
