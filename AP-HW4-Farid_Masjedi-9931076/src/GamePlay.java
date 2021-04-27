@@ -1,4 +1,3 @@
-import java.sql.Connection;
 import java.util.*;
 public class GamePlay{
 
@@ -41,7 +40,7 @@ public class GamePlay{
             choose = in.nextInt();
             in.nextLine();
         }
-        if (choose == 0 || state == 1)
+        if (choose == 0)
         {
             if (choose == 0)
                 player.addCard();
@@ -58,14 +57,14 @@ public class GamePlay{
             if(!(card.getNumber().equals(number)))
             {
                 System.out.println("wrong card!");
-                gamePlay(player,1);
+                gamePlay(player,0);
                 return;
             }
         }
         if (!(card.getNumber().equals(number) || card.getColor().equals(color)))
         {
             System.out.println("wrong card!");
-            gamePlay(player,1);
+            gamePlay(player,0);
             return;
         }
         player.playCard(choose);

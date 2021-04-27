@@ -18,6 +18,7 @@ public class Desk {
     }
     public void displayDesk()
     {
+        System.out.println();
         System.out.println("********* Desk ********");
         int i = 0;
         for (int j = 0; j < Config.cardsOnDesk.size() - 1; j++ , i++)
@@ -75,8 +76,8 @@ public class Desk {
         System.out.print("┘");
         color = Config.displayColor("reset");
         System.out.println(color);
-        System.out.println();
         System.out.println("***********************");
+        System.out.println();
     }
 
     public Card getDesk()
@@ -87,6 +88,13 @@ public class Desk {
         return direction;
     }
 
+    public String directionToString()
+    {
+        if (direction == 0)
+            return "clockwise";
+        else
+            return "anticlockwise";
+    }
     public void setDirection(int direction) {
         this.direction = direction;
     }

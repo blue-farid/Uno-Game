@@ -30,6 +30,8 @@ public class Main {
             String username = in.nextLine();
             player1 = new Player(username);
             Config.players.add(player1);
+            System.out.println("NOTE: after each stop in the game, press enter to continue. like now :))");
+            System.out.println();
             for (int i = 0; i < Config.numberOfPlayers - 1; i++) {
                 int j = i;
                 j += 2;
@@ -41,20 +43,29 @@ public class Main {
             }
             Config.mainDesk.addCardOnDesk();
             Player playerToStart =  Config.players.get(random.nextInt(Config.numberOfPlayers));
+            in.nextLine();
             playerToStart.setTurn(true);
             while (true)
             {
                 for (Player player: Config.players) {
                     if (player.isTurn()) {
+                        cls();
+                        System.out.print("Direction: " + Config.mainDesk.directionToString());
+                        playersCardsRemain();
+                        System.out.println();
+                        System.out.println();
                         System.out.println(player.getUsername() + "'s turn.");
                         System.out.println("cards remain: " + player.getCards().size());
-                        in.nextLine();
                         if (player.equals(player1))
                         {
                             GamePlay.gamePlay(player,0);
+                            Config.mainDesk.displayDesk();
                         }
                         else if (GamePlay.botGamePLay(player)) {
-                            System.out.println(player.getUsername() + " plays a card.");
+                            if (!(Config.mainDesk.getDesk().isSpecial())) {
+                                System.out.println(player.getUsername() + " plays a card (cards).");
+                            }
+                            Config.mainDesk.displayDesk();
                         } else
                             System.out.println(player.getUsername() + " did not plays a card. (pass)");
                         in.nextLine();
@@ -97,10 +108,20 @@ public class Main {
 
     public static void clearDesk()
     {
-        if (Config.cardsOnDesk.size() > 5)
+        if (Config.cardsOnDesk.size() > 4)
         {
             Config.cards.add(Config.cardsOnDesk.get(0));
             Config.cardsOnDesk.remove(0);
+        }
+    }
+
+    public static void playersCardsRemain()
+    {
+//        System.out.print("\t\tPlayers and their Remain Cards:\t");
+        System.out.print("\t\t");
+        for (Player player: Config.players)
+        {
+            System.out.print("{ " + player.getUsername() + " : " + player.getCards().size() + " }    ");
         }
     }
 }
