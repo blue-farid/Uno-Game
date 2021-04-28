@@ -1,14 +1,22 @@
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Desk {
 
     private int direction = 0;  // 0 is clockwise and 1 is anticlockwise.
     private static Random random = new Random(System.currentTimeMillis());
-    public void addCardOnDesk()
+    public void addFirstCardOnDesk()
     {
-        Card randomCard = Config.cards.get(random.nextInt(Config.cards.size()));
-        while (randomCard.getNumber().equals("B"))
-            randomCard = Config.cards.get(random.nextInt(Config.cards.size()));
+        ArrayList<NormalCard> normalCards = new ArrayList<>();
+        for (Card card: Config.cards)
+        {
+            if (!(card.isSpecial()))
+            {
+                NormalCard normalCard = (NormalCard) card;
+                normalCards.add(normalCard);
+            }
+        }
+        Card randomCard = normalCards.get(random.nextInt(normalCards.size()));
         Config.cardsOnDesk.add(randomCard);
         Config.cards.remove(randomCard);
     }
