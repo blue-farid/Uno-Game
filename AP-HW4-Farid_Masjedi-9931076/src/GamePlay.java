@@ -1,8 +1,19 @@
 import java.util.*;
+
+/**
+ * Gameplay Class has anything that connect to gameplay. like play a card and actions.
+ */
 public class GamePlay{
 
-    private static Scanner in = new Scanner(System.in);
-    private static Random random = new Random(System.currentTimeMillis());
+    private static Scanner in = new Scanner(System.in); //a scanner to get input from user.
+    private static Random random = new Random(System.currentTimeMillis());// use Random class to make random choice for bots.
+
+    /**
+     * gamPlay method has made for human players not the bot.
+     * @param player
+     * @param state state can be 0 or 1. if state was 0 that means player can get a card from main cards and try again.
+     *                                   if state was 1 that means player can not get a card and the turn is over.
+     */
     public static void gamePlay(Player player , int state)
     {
         Config.mainDesk.displayDesk();
@@ -24,6 +35,7 @@ public class GamePlay{
             if (has7Card)
             {
                 System.out.println("you have 7 card, so choose on of them.");
+                player.displayCards();
                 choose = in.nextInt();
             } else
             {
@@ -31,6 +43,7 @@ public class GamePlay{
                 Config.card7 = false;
                 player.addCard();
                 player.addCard();
+                in.nextLine();
                 return;
             }
         }
@@ -40,10 +53,11 @@ public class GamePlay{
             choose = in.nextInt();
             in.nextLine();
         }
-        if (choose == 0)
+        if (choose == 0 || state == 1)
         {
             if (choose == 0)
                 player.addCard();
+            state = 1;
             player.displayCards();
             System.out.println("choose a card or enter \'0\' to skip your turn.");
             choose = in.nextInt();
@@ -58,7 +72,7 @@ public class GamePlay{
             {
                 Main.mainPart(player);
                 System.out.println("wrong card!");
-                gamePlay(player,0);
+                gamePlay(player,state);
                 return;
             }
         }
@@ -66,14 +80,20 @@ public class GamePlay{
         {
             Main.mainPart(player);
             System.out.println("wrong card!");
-            gamePlay(player,0);
+            gamePlay(player,state);
             return;
         }
         player.playCard(choose);
     }
+
+    /**
+     * botGameplay method has made for bots. that makes random decision for a player.
+     * @param player
+     * @return true if bots play a card.
+     * @return false if bots can't play a card.
+     */
     public static boolean botGamePLay(Player player)
     {
-        Config.mainDesk.displayDesk();
         String number = Config.mainDesk.getDesk().getNumber();
         String color = Config.mainDesk.getDesk().getColor();
         if (Config.card7)
@@ -112,6 +132,12 @@ public class GamePlay{
         return false;
     }
 
+    /**
+     * take a player and checks the player is the winner or not.
+     * @param player
+     * @return true if game is over.
+     * @return false if game is not over yet.
+     */
     public static boolean gameIsOver(Player player)
     {
         if (player.getCards().size() == 0)
@@ -120,6 +146,11 @@ public class GamePlay{
             return false;
     }
 
+    /**
+     * specialMoves method has made just for humans player not the bots. that takes a player and a String stand for move.
+     * @param player
+     * @param move that comes from one of the special cards field.
+     */
     public static void specialMoves(Player player , String move)
     {
         int choose = 0;
@@ -162,16 +193,16 @@ public class GamePlay{
             in.nextLine();
             if (choose == 1)
             {
-                Config.cardsOnDesk.add(new Card("R","B"));
+                Config.cardsOnDesk.add(new SpecialCard("R","B"));
             } else if (choose == 2)
             {
-                Config.cardsOnDesk.add(new Card("B","B"));
+                Config.cardsOnDesk.add(new SpecialCard("B","B"));
             } else if (choose == 3)
             {
-                Config.cardsOnDesk.add(new Card("W","B"));
+                Config.cardsOnDesk.add(new SpecialCard("W","B"));
             } else if (choose == 4)
             {
-                Config.cardsOnDesk.add(new Card("G","B"));
+                Config.cardsOnDesk.add(new SpecialCard("G","B"));
             } else
             {
                 System.out.println("wrong input.");
@@ -183,6 +214,12 @@ public class GamePlay{
         }
     }
 
+    /**
+     * botSpecialMoves has made just for bots. that's just like the specialMoves method with the difference that in this method,
+     *                 choices are random.
+     * @param player
+     * @param move
+     */
     public static void botSpecialMoves(Player player, String move)
     {
         int choose = 0;
@@ -226,19 +263,19 @@ public class GamePlay{
             if (choose == 1)
             {
                 System.out.println(player.getUsername() + " decide to change color to red");
-                Config.cardsOnDesk.add(new Card("R","B"));
+                Config.cardsOnDesk.add(new SpecialCard("R","B"));
             } else if (choose == 2)
             {
                 System.out.println(player.getUsername() + " decide to change color to blue");
-                Config.cardsOnDesk.add(new Card("B","B"));
+                Config.cardsOnDesk.add(new SpecialCard("B","B"));
             } else if (choose == 3)
             {
                 System.out.println(player.getUsername() + " decide to change color to white");
-                Config.cardsOnDesk.add(new Card("W","B"));
+                Config.cardsOnDesk.add(new SpecialCard("W","B"));
             } else if (choose == 4)
             {
                 System.out.println(player.getUsername() + " decide to change color to green");
-                Config.cardsOnDesk.add(new Card("G","B"));
+                Config.cardsOnDesk.add(new SpecialCard("G","B"));
             } else
             {
                 System.out.println("wrong input.");
@@ -247,10 +284,14 @@ public class GamePlay{
         }
         else if (move.equals("7"))
         {
+            System.out.println(player + " plays a 7 card.");
             Config.card7 = true;
         }
     }
 
+    /**
+     * that prints all of the players score at the end of the game. sorting ascending.
+     */
     public static void scoreBoard()
     {
         ArrayList<Integer> scores = new ArrayList<>();
@@ -261,7 +302,7 @@ public class GamePlay{
             {
                 char c = card.getNumber().charAt(0);
                 if (c > 47 && c < 58) {
-                    if (c == 1)
+                    if (c == '1')
                         score += 10;
                     else {
                         c -= 48;
@@ -290,6 +331,11 @@ public class GamePlay{
         }
     }
 
+    /**
+     * that's take a player and with attention to direction of the game, return the next player.
+     * @param player
+     * @return return the index of the next player.
+     */
     public static int indexOfNextPlayer(Player player)
     {
         int index = Config.players.indexOf(player);
