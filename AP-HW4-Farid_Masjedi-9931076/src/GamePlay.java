@@ -24,6 +24,7 @@ public class GamePlay{
             if (has7Card)
             {
                 System.out.println("you have 7 card, so choose on of them.");
+                player.displayCards();
                 choose = in.nextInt();
             } else
             {
@@ -31,6 +32,7 @@ public class GamePlay{
                 Config.card7 = false;
                 player.addCard();
                 player.addCard();
+                in.nextLine();
                 return;
             }
         }
@@ -40,10 +42,11 @@ public class GamePlay{
             choose = in.nextInt();
             in.nextLine();
         }
-        if (choose == 0)
+        if (choose == 0 || state == 1)
         {
             if (choose == 0)
                 player.addCard();
+            state = 1;
             player.displayCards();
             System.out.println("choose a card or enter \'0\' to skip your turn.");
             choose = in.nextInt();
@@ -58,7 +61,7 @@ public class GamePlay{
             {
                 Main.mainPart(player);
                 System.out.println("wrong card!");
-                gamePlay(player,0);
+                gamePlay(player,state);
                 return;
             }
         }
@@ -66,14 +69,13 @@ public class GamePlay{
         {
             Main.mainPart(player);
             System.out.println("wrong card!");
-            gamePlay(player,0);
+            gamePlay(player,state);
             return;
         }
         player.playCard(choose);
     }
     public static boolean botGamePLay(Player player)
     {
-        Config.mainDesk.displayDesk();
         String number = Config.mainDesk.getDesk().getNumber();
         String color = Config.mainDesk.getDesk().getColor();
         if (Config.card7)
@@ -162,16 +164,16 @@ public class GamePlay{
             in.nextLine();
             if (choose == 1)
             {
-                Config.cardsOnDesk.add(new Card("R","B"));
+                Config.cardsOnDesk.add(new SpecialCard("R","B"));
             } else if (choose == 2)
             {
-                Config.cardsOnDesk.add(new Card("B","B"));
+                Config.cardsOnDesk.add(new SpecialCard("B","B"));
             } else if (choose == 3)
             {
-                Config.cardsOnDesk.add(new Card("W","B"));
+                Config.cardsOnDesk.add(new SpecialCard("W","B"));
             } else if (choose == 4)
             {
-                Config.cardsOnDesk.add(new Card("G","B"));
+                Config.cardsOnDesk.add(new SpecialCard("G","B"));
             } else
             {
                 System.out.println("wrong input.");
@@ -226,19 +228,19 @@ public class GamePlay{
             if (choose == 1)
             {
                 System.out.println(player.getUsername() + " decide to change color to red");
-                Config.cardsOnDesk.add(new Card("R","B"));
+                Config.cardsOnDesk.add(new SpecialCard("R","B"));
             } else if (choose == 2)
             {
                 System.out.println(player.getUsername() + " decide to change color to blue");
-                Config.cardsOnDesk.add(new Card("B","B"));
+                Config.cardsOnDesk.add(new SpecialCard("B","B"));
             } else if (choose == 3)
             {
                 System.out.println(player.getUsername() + " decide to change color to white");
-                Config.cardsOnDesk.add(new Card("W","B"));
+                Config.cardsOnDesk.add(new SpecialCard("W","B"));
             } else if (choose == 4)
             {
                 System.out.println(player.getUsername() + " decide to change color to green");
-                Config.cardsOnDesk.add(new Card("G","B"));
+                Config.cardsOnDesk.add(new SpecialCard("G","B"));
             } else
             {
                 System.out.println("wrong input.");
@@ -247,6 +249,7 @@ public class GamePlay{
         }
         else if (move.equals("7"))
         {
+            System.out.println(player + " plays a 7 card.");
             Config.card7 = true;
         }
     }
@@ -261,7 +264,7 @@ public class GamePlay{
             {
                 char c = card.getNumber().charAt(0);
                 if (c > 47 && c < 58) {
-                    if (c == 1)
+                    if (c == '1')
                         score += 10;
                     else {
                         c -= 48;

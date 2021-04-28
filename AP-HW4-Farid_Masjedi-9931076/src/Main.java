@@ -23,7 +23,7 @@ public class Main {
         in.nextLine();
         if (mode == 1)
         {
-            System.out.println("How many players are in the game? enter a number between 2 - 5");
+            System.out.println("How many players are in the game? enter a number from 2 to 5");
             Config.numberOfPlayers = in.nextInt();
             in.nextLine();
             System.out.println("please enter a username for yourself:");
@@ -49,19 +49,24 @@ public class Main {
             {
                 for (Player player: Config.players) {
                     if (player.isTurn()) {
-                        mainPart(player);
                         if (player.equals(player1))
                         {
+                            mainPart(player);
                             GamePlay.gamePlay(player,0);
+                            mainPart(player);
                             Config.mainDesk.displayDesk();
                         }
-                        else if (GamePlay.botGamePLay(player)) {
-                            if (!(Config.mainDesk.getDesk().isSpecial())) {
-                                System.out.println(player.getUsername() + " plays a card.");
+                        else {
+                            mainPart(player);
+                            if (GamePlay.botGamePLay(player)) {
+                                if (!(Config.mainDesk.getDesk().isSpecial() || Config.mainDesk.getDesk().getNumber().equals("B"))) {
+                                    System.out.println(player.getUsername() + " plays a card.");
+                                }
+                            } else {
+                                System.out.println(player.getUsername() + " did not plays a card. (pass)");
                             }
                             Config.mainDesk.displayDesk();
-                        } else
-                            System.out.println(player.getUsername() + " did not plays a card. (pass)");
+                        }
                         in.nextLine();
                         if (GamePlay.gameIsOver(player))
                         {
@@ -115,7 +120,7 @@ public class Main {
     public static void playersCardsRemain()
     {
 //        System.out.print("\t\tPlayers and their Remain Cards:\t");
-        System.out.print("\t\t");
+        System.out.print("\t ");
         for (Player player: Config.players)
         {
             System.out.print("{ " + player.getUsername() + " : " + player.getCards().size() + " }    ");
