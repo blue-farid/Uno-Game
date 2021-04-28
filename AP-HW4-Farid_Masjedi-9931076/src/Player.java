@@ -117,10 +117,10 @@ public class Player {
             SpecialCard specialCard = (SpecialCard) card;
             if (this.equals(Config.players.get(0)))
             {
-                GamePlay.specialMoves(this , specialCard.getMove());
+                GamePlay.specialMoves(this , specialCard);
             } else
             {
-                GamePlay.botSpecialMoves(this , specialCard.getMove());
+                GamePlay.botSpecialMoves(this , specialCard);
             }
 
         }
@@ -135,10 +135,10 @@ public class Player {
             SpecialCard specialCard = (SpecialCard) card;
             if (this.equals(Config.players.get(0)))
             {
-                GamePlay.specialMoves(this , specialCard.getMove());
+                GamePlay.specialMoves(this , specialCard);
             } else
             {
-                GamePlay.botSpecialMoves(this , specialCard.getMove());
+                GamePlay.botSpecialMoves(this , specialCard);
             }
 
         }

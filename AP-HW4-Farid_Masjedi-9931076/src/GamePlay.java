@@ -23,7 +23,7 @@ public class GamePlay{
         if (Config.card7)
         {
             boolean has7Card = false;
-            System.out.println(player.getUsername() + " has to play a 7 card or takes 2 card.");
+            System.out.println(player.getUsername() + " has to play a 7 card or takes " + Config.penalty + " cards.");
             for (Card card: player.getCards())
             {
                 if (card.getNumber().equals("7"))
@@ -39,15 +39,15 @@ public class GamePlay{
                 choose = in.nextInt();
             } else
             {
-                System.out.println("you don't have 7 card, so you have got to take 2 another card.");
-                Config.card7 = false;
-                player.addCard();
-                player.addCard();
+                System.out.println("you don't have 7 card, so you have got to take " + Config.penalty + " another card.");
+                for (int i = 0; i < Config.penalty; i++)
+                    player.addCard();
+                reset7Card();
                 in.nextLine();
                 return;
             }
         }
-        if(state == 0) {
+        if(state == 0 && !(Config.card7)) {
             player.displayCards();
             System.out.println("choose a card or enter \'0\' to get a new card.");
             choose = in.nextInt();
@@ -98,7 +98,7 @@ public class GamePlay{
         String color = Config.mainDesk.getDesk().getColor();
         if (Config.card7)
         {
-            System.out.println(player.getUsername() + " has to play a 7 card or takes 2 card.");
+            System.out.println(player.getUsername() + " has to play a 7 card or takes " + Config.penalty + " card.");
             for (Card card: player.getCards())
             {
                 if (card.getNumber().equals("7"))
@@ -106,12 +106,12 @@ public class GamePlay{
                     player.playCard(card);
                     return true;
                 }
-                System.out.println(player.getUsername() + " doesn't have 7 card, so he takes 2 another card.");
-                Card card1 = Config.cards.get(random.nextInt(Config.cards.size()));
-                player.getCards().add(card1);
-                card1 = Config.cards.get(random.nextInt(Config.cards.size()));
-                player.getCards().add(card1);
-                Config.card7 = false;
+                System.out.println(player.getUsername() + " doesn't have 7 card, so he takes " + Config.penalty + " another card.");
+                for (int i = 0; i < Config.penalty; i++) {
+                    Card card1 = Config.cards.get(random.nextInt(Config.cards.size()));
+                    player.getCards().add(card1);
+                }
+                reset7Card();
                 return false;
             }
 
@@ -149,10 +149,11 @@ public class GamePlay{
     /**
      * specialMoves method has made just for humans player not the bots. that takes a player and a String stand for move.
      * @param player
-     * @param move that comes from one of the special cards field.
+     * @param specialCard
      */
-    public static void specialMoves(Player player , String move)
+    public static void specialMoves(Player player , SpecialCard specialCard)
     {
+        String move = specialCard.getMove();
         int choose = 0;
         if (move.equals("2"))
         {
@@ -210,6 +211,13 @@ public class GamePlay{
             Config.cardsOnDesk.remove(Config.cardsOnDesk.size() - 2);
         } else if (move.equals("7"))
         {
+            if (specialCard.getColor().equals("W"))
+            {
+                Config.penalty += 4;
+            } else
+            {
+                Config.penalty += 2;
+            }
             Config.card7 = true;
         }
     }
@@ -218,10 +226,11 @@ public class GamePlay{
      * botSpecialMoves has made just for bots. that's just like the specialMoves method with the difference that in this method,
      *                 choices are random.
      * @param player
-     * @param move
+     * @param specialCard
      */
-    public static void botSpecialMoves(Player player, String move)
+    public static void botSpecialMoves(Player player, SpecialCard specialCard)
     {
+        String move = specialCard.getMove();
         int choose = 0;
         if (player.getCards().size() <= 0)
         {
@@ -285,6 +294,13 @@ public class GamePlay{
         else if (move.equals("7"))
         {
             System.out.println(player + " plays a 7 card.");
+            if (specialCard.getColor().equals("W"))
+            {
+                Config.penalty += 4;
+            } else
+            {
+                Config.penalty += 2;
+            }
             Config.card7 = true;
         }
     }
@@ -350,5 +366,11 @@ public class GamePlay{
         }
         index %= Config.numberOfPlayers;
         return index;
+    }
+
+    public static void reset7Card()
+    {
+        Config.card7 = false;
+        Config.penalty = 0;
     }
 }
