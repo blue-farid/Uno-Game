@@ -7,6 +7,7 @@ public class Config {
     public static Desk mainDesk = new Desk();
     public static boolean cardA = false;
     public static boolean card7 = false;
+    public static int penalty = 0;
     public static int numberOfPlayers;
     public static String displayColor(String color) {
         String ANSI_RESET = "\u001B[0m";

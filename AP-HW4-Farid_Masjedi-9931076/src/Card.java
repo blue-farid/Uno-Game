@@ -37,7 +37,8 @@ public class Card {
                 Config.cards.add(new NormalCard(green,st));
                 continue;
             }
-            if ( j == 2 || j == 7 || j == 8 || j == 10)
+            /* 2 7 8 10 */
+            if (j == 2 || j == 7 || j == 8 || j == 10)
             {
                 Config.cards.add(new SpecialCard(white,Integer.toString(j)));
                 Config.cards.add(new SpecialCard(blue,Integer.toString(j)));
