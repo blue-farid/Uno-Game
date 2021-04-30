@@ -2,29 +2,37 @@ import java.io.IOException;
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * Dirty Seven Card Game.
+ * This game has been written to run on windows terminal (cmd).
+ * @author Farid.
+ * @version 1.2
+ */
 public class Main {
-    private static Random random = new Random(System.currentTimeMillis());
-    private static Scanner in = new Scanner(System.in);
-    private static Card mainCard = new Card("main","main");
-    private static Player player1;
-    private static Player winner;
+    private static Random random = new Random(System.currentTimeMillis()); //a random object to make random decisions.
+    private static Scanner in = new Scanner(System.in);// a scanner object to get input from the user.
+    private static Card mainCard = new Card("main","main"); // a card object to access to the methods of the Card class.
+    private static Player player1; // the human player.
+    private static Player winner;// the winner player. it is null until on of the players wins the game.
     public static void main(String[] args) throws IOException, InterruptedException {
         int display = new ProcessBuilder("cmd", "/c", "color", "00").inheritIO().start().waitFor();
         System.out.print(display);
         System.out.println("\b");
         cls();
         System.out.println("\b");
-        int mode = 0;
-        mainCard.creatCards();
+        int mode = 0; // to determine the game mode. in this version we just have single player mode.
         System.out.println("please choose on of the modes bellow:");
         System.out.println("1- Single player");
-        System.out.println("2- Multi player ");
+//        System.out.println("2- Multi player ");
         mode = in.nextInt();
         in.nextLine();
         if (mode == 1)
         {
-            System.out.println("How many players are in the game? enter a number from 2 to 5");
+            System.out.println("How many players are in the game? enter a number between 2 to ...");
             Config.numberOfPlayers = in.nextInt();
+            Config.packOfCards = (int) Math.ceil((double) Config.numberOfPlayers / 5);
+            for (int i = 0; i < Config.packOfCards; i++)
+                mainCard.creatCards();
             in.nextLine();
             System.out.println("please enter a username for yourself:");
             String username = in.nextLine();
@@ -94,6 +102,10 @@ public class Main {
             in.nextLine();
         }
     }
+
+    /**
+     * clears the screen.
+     */
     public static void cls()
     {
         try {
@@ -106,33 +118,55 @@ public class Main {
         } catch (IOException | InterruptedException ex) {}
     }
 
+    /**
+     * does not allow desk to have more than 4 element.
+     */
     public static void clearDesk()
     {
         if (Config.cardsOnDesk.size() > 4)
         {
-            for (int i  = 3; Config.cardsOnDesk.size() - i > 0; i++) {
+            for (int i  = 0; Config.cardsOnDesk.size() - 4 > 0; i++) {
                 Config.cards.add(Config.cardsOnDesk.get(0));
                 Config.cardsOnDesk.remove(0);
             }
         }
     }
 
+    /**
+     * prints players and the number of the cards remain.
+     */
     public static void playersCardsRemain()
     {
+        int i = 0;
+        int j = 0;
+        int z = 5;
 //        System.out.print("\t\tPlayers and their Remain Cards:\t");
-        System.out.print("\t ");
-        for (Player player: Config.players)
-        {
-            System.out.print("{ " + player.getUsername() + " : " + player.getCards().size() + " }    ");
+        for (; j < Config.packOfCards; j++) {
+            System.out.print("\t ");
+            for (; i < z; i++) {
+                if (i >= Config.players.size())
+                    break;
+                Player player = Config.players.get(i);
+                System.out.print("{ " + player.getUsername() + " : " + player.getCards().size() + " }    ");
+            }
+            z += 5;
+            System.out.println();
+            System.out.println();
+            System.out.print("           " + Config.mainDesk.directionToString(0));
         }
+
     }
     public static Player getWinner() {
         return winner;
     }
 
+    /**
+     * prints the direction of the game and players and the number of the cards remain + the player's turn on the top of the screen.
+     * @param player
+     */
     public static void mainPart(Player player)
     {
-        cls();
+        cls(); // clears the screen.
         System.out.print("Direction: " + Config.mainDesk.directionToString());
         playersCardsRemain();
         System.out.println();
