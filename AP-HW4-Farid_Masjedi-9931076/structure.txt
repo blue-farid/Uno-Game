@@ -1,7 +1,0 @@
-cards
-{
-normal cards
-special cards
-}
-
-after 7 card and give cards, display cards?
