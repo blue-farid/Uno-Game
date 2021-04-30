@@ -1,8 +1,10 @@
-
 import java.util.LinkedList;
 import java.util.Objects;
 import java.util.Random;
 
+/**
+ * Player Class.
+ */
 public class Player {
     private String username;
     private int score = 0;
@@ -13,6 +15,9 @@ public class Player {
         this.username = username;
     }
 
+    /**
+     * distribute first 7 card randomly to player.
+     */
     public void addFirst7Cards() {
         Random random = new Random(System.currentTimeMillis());
         for (int i = 0; i < 7; i++)
@@ -22,18 +27,31 @@ public class Player {
             Config.cards.remove(randomCard);
         }
     }
+
+    /**
+     * add the card to the player's card.
+     * @param card
+     */
     public void addCard(Card card)
     {
         cards.add(card);
         Config.cards.remove(card);
     }
 
+    /**
+     * remove the card from the player's card.
+     * @param card
+     * @return
+     */
     public Card removeCard(Card card) {
         cards.remove(card);
         Config.cards.add(card);
         return card;
     }
 
+    /**
+     * prints the player's card.
+     */
     public void displayCards() {
         int i = 0;
         for (int j = 0; j < cards.size() - 1; j++ , i++)
@@ -100,6 +118,9 @@ public class Player {
         System.out.println();
     }
 
+    /**
+     * add a card to player's cards randomly.
+     */
     public void addCard()
     {
         Random random = new Random(System.currentTimeMillis());
@@ -107,6 +128,11 @@ public class Player {
         cards.add(randomCard);
         Config.cards.remove(randomCard);
     }
+
+    /**
+     * playing the card.
+     * @param index
+     */
     public void playCard(int index)
     {
         Card card = cards.get(index);
@@ -126,6 +152,10 @@ public class Player {
         }
     }
 
+    /**
+     * playing the card.
+     * @param card
+     */
     public void playCard(Card card)
     {
         Config.mainDesk.addCardOnDesk(card);
@@ -143,6 +173,7 @@ public class Player {
 
         }
     }
+
     public void setTurn(boolean turn) {
         this.turn = turn;
     }

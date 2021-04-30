@@ -39,7 +39,7 @@ public class GamePlay{
                 choose = in.nextInt();
             } else
             {
-                System.out.println("you don't have 7 card, so you have got to take " + Config.penalty + " another card.");
+                System.out.println("you don't have 7 card, so you have to take " + Config.penalty + " another card.");
                 for (int i = 0; i < Config.penalty; i++)
                     player.addCard();
                 reset7Card();
@@ -65,6 +65,13 @@ public class GamePlay{
                 return;
         }
         choose--;
+        if (choose >= player.getCards().size())
+        {
+            Main.mainPart(player);
+            System.out.println("out of index");
+            gamePlay(player,state);
+            return;
+        }
         Card card = player.getCards().get(choose);
         if (Config.card7)
         {
@@ -157,19 +164,23 @@ public class GamePlay{
         int choose = 0;
         if (move.equals("2"))
         {
-            System.out.println("choose a player to give him one of your card. (enter a number from 1 to ...)");
-            Config.printPlayers();
-            choose = in.nextInt();
-            in.nextLine();
-            Card card = player.getCards().get(random.nextInt(player.getCards().size()));
-            player.getCards().remove(card);
-            choose--;
-            Config.players.get(choose).getCards().add(card);
+            if (!(gameIsOver(player))) {
+                System.out.println("choose a player to give him one of your card. (enter a number from 1 to ...)");
+                Config.printPlayers();
+                choose = in.nextInt();
+                in.nextLine();
+                Card card = player.getCards().get(random.nextInt(player.getCards().size()));
+                player.getCards().remove(card);
+                choose--;
+                Config.players.get(choose).getCards().add(card);
+            }
         } else if (move.equals("8"))
         {
             Main.mainPart(player);
-            System.out.println("you have another chance (8 card).");
-            gamePlay(player,0);
+            if (!(gameIsOver(player))) {
+                System.out.println("you have another chance (8 card).");
+                gamePlay(player, 0);
+            }
         } else if (move.equals("10"))
         {
             System.out.println("changing direction.");
@@ -238,17 +249,21 @@ public class GamePlay{
         }
         if (move.equals("2"))
         {
-            choose = random.nextInt(Config.players.size());
-            while (player.equals(Config.players.get(choose)))
+            if (!(gameIsOver(player))) {
                 choose = random.nextInt(Config.players.size());
-            Card card = player.getCards().get(random.nextInt(player.getCards().size()));
-            player.getCards().remove(card);
-            Config.players.get(choose).getCards().add(card);
-            System.out.println(player.getUsername() + " decide to give a card to " + Config.players.get(choose));
+                while (player.equals(Config.players.get(choose)))
+                    choose = random.nextInt(Config.players.size());
+                Card card = player.getCards().get(random.nextInt(player.getCards().size()));
+                player.getCards().remove(card);
+                Config.players.get(choose).getCards().add(card);
+                System.out.println(player.getUsername() + " decide to give a card to " + Config.players.get(choose));
+            }
         } else if (move.equals("8"))
         {
-            System.out.println(player.getUsername() + " has another chance (8 card).");
-            botGamePLay(player);
+            if (!(gameIsOver(player))) {
+                System.out.println(player.getUsername() + " has another chance (8 card).");
+                botGamePLay(player);
+            }
         } else if (move.equals("10"))
         {
             System.out.println("changing direction.");
@@ -368,6 +383,9 @@ public class GamePlay{
         return index;
     }
 
+    /**
+     * after 7 cards penalties, resets them.
+     */
     public static void reset7Card()
     {
         Config.card7 = false;

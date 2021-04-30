@@ -1,10 +1,17 @@
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Desk Class.
+ */
 public class Desk {
 
     private int direction = 0;  // 0 is clockwise and 1 is anticlockwise.
     private static Random random = new Random(System.currentTimeMillis());
+
+    /**
+     * add a card randomly to desk.
+     */
     public void addFirstCardOnDesk()
     {
         ArrayList<NormalCard> normalCards = new ArrayList<>();
@@ -21,11 +28,19 @@ public class Desk {
         Config.cards.remove(randomCard);
     }
 
+    /**
+     * add the card to desk.
+     * @param card
+     */
     public void addCardOnDesk(Card card)
     {
         Config.cardsOnDesk.add(card);
         Config.cards.remove(card);
     }
+
+    /**
+     * prints all of the cards of the desk.
+     */
     public void displayDesk()
     {
         System.out.println();

@@ -1,3 +1,6 @@
+/**
+ * special cards class.
+ */
 public class SpecialCard extends Card{
 
     private String move;

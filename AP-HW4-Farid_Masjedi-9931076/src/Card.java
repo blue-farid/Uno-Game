@@ -1,6 +1,8 @@
-import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * Cards Class.
+ */
 public class Card {
     private String color;
     private String number;
@@ -13,6 +15,10 @@ public class Card {
         this.color = color;
         this.number = number;
     }
+
+    /**
+     * creats the cards (52 cards).
+     */
     public void creatCards()
     {
         for (int i = 0; i < 13; i++) {
@@ -83,6 +89,12 @@ public class Card {
         System.out.println("┘");
         System.out.println(Config.displayColor("reset"));
     }
+
+    /**
+     * check that the card is special or not.
+     * @return true if card is special.
+     * @return false if card is not special.
+     */
     public boolean isSpecial()
     {
         if (this instanceof SpecialCard)
