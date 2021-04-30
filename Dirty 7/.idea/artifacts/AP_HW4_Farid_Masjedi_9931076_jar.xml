@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="AP-HW4-Farid_Masjedi-9931076:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/AP_HW4_Farid_Masjedi_9931076_jar</output-path>
+    <root id="archive" name="AP-HW4-Farid_Masjedi-9931076.jar">
+      <element id="module-output" name="AP-HW4-Farid_Masjedi-9931076" />
+    </root>
+  </artifact>
+</component>

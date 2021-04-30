@@ -9,6 +9,7 @@ public class Config {
     public static boolean card7 = false;
     public static int penalty = 0;
     public static int numberOfPlayers;
+    public static int packOfCards;
     public static String displayColor(String color) {
         String ANSI_RESET = "\u001B[0m";
         String ANSI_BLACK = "\u001B[30m";
