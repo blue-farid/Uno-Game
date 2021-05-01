@@ -6,7 +6,7 @@ import java.util.Scanner;
  * Dirty Seven Card Game.
  * This game has been written to run on windows terminal (cmd).
  * @author Farid.
- * @version 1.2
+ * @version 2.0
  */
 public class Main {
     private static Random random = new Random(System.currentTimeMillis()); //a random object to make random decisions.
