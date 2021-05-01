@@ -10,9 +10,9 @@ public class GamePlay{
 
     /**
      * gamPlay method has made for human players not the bot.
-     * @param player
-     * @param state state can be 0 or 1. if state was 0 that means player can get a card from main cards and try again.
-     *                                   if state was 1 that means player can not get a card and the turn is over.
+     *
+     * @param player the player
+     * @param state  state can be 0 or 1. if state was 0 that means player can get a card from main cards and try again.                                   if state was 1 that means player can not get a card and the turn is over.
      */
     public static void gamePlay(Player player , int state)
     {
@@ -95,9 +95,9 @@ public class GamePlay{
 
     /**
      * botGameplay method has made for bots. that makes random decision for a player.
-     * @param player
+     *
+     * @param player the player
      * @return true if bots play a card.
-     * @return false if bots can't play a card.
      */
     public static boolean botGamePLay(Player player)
     {
@@ -141,9 +141,9 @@ public class GamePlay{
 
     /**
      * take a player and checks the player is the winner or not.
-     * @param player
+     *
+     * @param player the player
      * @return true if game is over.
-     * @return false if game is not over yet.
      */
     public static boolean gameIsOver(Player player)
     {
@@ -155,8 +155,9 @@ public class GamePlay{
 
     /**
      * specialMoves method has made just for humans player not the bots. that takes a player and a String stand for move.
-     * @param player
-     * @param specialCard
+     *
+     * @param player      the player
+     * @param specialCard the special card
      */
     public static void specialMoves(Player player , SpecialCard specialCard)
     {
@@ -236,9 +237,10 @@ public class GamePlay{
 
     /**
      * botSpecialMoves has made just for bots. that's just like the specialMoves method with the difference that in this method,
-     *                 choices are random.
-     * @param player
-     * @param specialCard
+     * choices are random.
+     *
+     * @param player      the player
+     * @param specialCard the special card
      */
     public static void botSpecialMoves(Player player, SpecialCard specialCard)
     {
@@ -359,7 +361,8 @@ public class GamePlay{
 
     /**
      * that's take a player and with attention to direction of the game, return the next player.
-     * @param player
+     *
+     * @param player the player
      * @return return the index of the next player.
      */
     public static int indexOfNextPlayer(Player player)

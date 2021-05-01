@@ -6,10 +6,29 @@ import java.util.Objects;
 public class Card {
     private String color;
     private String number;
+    /**
+     * The White.
+     */
     protected final String white = "W";
+    /**
+     * The Blue.
+     */
     protected final String blue = "B";
+    /**
+     * The Red.
+     */
     protected final String red = "R";
+    /**
+     * The Green.
+     */
     protected final String green = "G";
+
+    /**
+     * Instantiates a new Card.
+     *
+     * @param color  the color
+     * @param number the number
+     */
     public Card(String color, String number)
     {
         this.color = color;
@@ -59,6 +78,9 @@ public class Card {
         }
     }
 
+    /**
+     * Display card.
+     */
     public void displayCard() {
         String color = Config.displayColor(this.color);
         int j = 0;
@@ -92,8 +114,8 @@ public class Card {
 
     /**
      * check that the card is special or not.
+     *
      * @return true if card is special.
-     * @return false if card is not special.
      */
     public boolean isSpecial()
     {
@@ -117,10 +139,20 @@ public class Card {
         return Objects.hash(color, number);
     }
 
+    /**
+     * Gets color.
+     *
+     * @return the color
+     */
     public String getColor() {
         return color;
     }
 
+    /**
+     * Gets number.
+     *
+     * @return the number
+     */
     public String getNumber() {
         return number;
     }
