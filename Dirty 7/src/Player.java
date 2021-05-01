@@ -10,6 +10,12 @@ public class Player implements Comparable {
     private int score = 0;
     private boolean turn = false;
     private LinkedList<Card> cards = new LinkedList<>();
+
+    /**
+     * Instantiates a new Player.
+     *
+     * @param username the username
+     */
     public Player(String username)
     {
         this.username = username;
@@ -30,7 +36,8 @@ public class Player implements Comparable {
 
     /**
      * add the card to the player's card.
-     * @param card
+     *
+     * @param card the card
      */
     public void addCard(Card card)
     {
@@ -40,8 +47,9 @@ public class Player implements Comparable {
 
     /**
      * remove the card from the player's card.
-     * @param card
-     * @return
+     *
+     * @param card the card
+     * @return card
      */
     public Card removeCard(Card card) {
         cards.remove(card);
@@ -131,7 +139,8 @@ public class Player implements Comparable {
 
     /**
      * playing the card.
-     * @param index
+     *
+     * @param index the index
      */
     public void playCard(int index)
     {
@@ -154,7 +163,8 @@ public class Player implements Comparable {
 
     /**
      * playing the card.
-     * @param card
+     *
+     * @param card the card
      */
     public void playCard(Card card)
     {
@@ -174,26 +184,56 @@ public class Player implements Comparable {
         }
     }
 
+    /**
+     * Sets turn.
+     *
+     * @param turn the turn
+     */
     public void setTurn(boolean turn) {
         this.turn = turn;
     }
 
+    /**
+     * Gets username.
+     *
+     * @return the username
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * Is turn boolean.
+     *
+     * @return the boolean
+     */
     public boolean isTurn() {
         return turn;
     }
 
+    /**
+     * Gets cards.
+     *
+     * @return the cards
+     */
     public LinkedList<Card> getCards() {
         return cards;
     }
 
+    /**
+     * Gets score.
+     *
+     * @return the score
+     */
     public int getScore() {
         return score;
     }
 
+    /**
+     * Sets score.
+     *
+     * @param score the score
+     */
     public void setScore(int score) {
         this.score = score;
     }

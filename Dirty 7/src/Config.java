@@ -1,15 +1,52 @@
 import java.util.ArrayList;
 
+/**
+ * The type Config.
+ */
 public class Config {
+    /**
+     * The constant players.
+     */
     public static ArrayList<Player> players = new ArrayList<>();
+    /**
+     * The constant cards.
+     */
     public static ArrayList<Card> cards = new ArrayList<>();
+    /**
+     * The constant cardsOnDesk.
+     */
     public static ArrayList<Card> cardsOnDesk = new ArrayList<>();
+    /**
+     * The constant mainDesk.
+     */
     public static Desk mainDesk = new Desk();
+    /**
+     * The constant cardA.
+     */
     public static boolean cardA = false;
+    /**
+     * The constant card7.
+     */
     public static boolean card7 = false;
+    /**
+     * The constant penalty.
+     */
     public static int penalty = 0;
+    /**
+     * The constant numberOfPlayers.
+     */
     public static int numberOfPlayers;
+    /**
+     * The constant packOfCards.
+     */
     public static int packOfCards;
+
+    /**
+     * Display color string.
+     *
+     * @param color the color
+     * @return the string
+     */
     public static String displayColor(String color) {
         String ANSI_RESET = "\u001B[0m";
         String ANSI_BLACK = "\u001B[30m";
@@ -37,6 +74,9 @@ public class Config {
             return ANSI_RESET;
     }
 
+    /**
+     * Print players.
+     */
     public static void printPlayers()
     {
         System.out.print("{");

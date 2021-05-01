@@ -5,7 +5,8 @@ import java.util.Scanner;
 /**
  * Dirty Seven Card Game.
  * This game has been written to run on windows terminal (cmd).
- * @author Farid.
+ *
+ * @author Farid Masjedi.
  * @version 2.0
  */
 public class Main {
@@ -14,6 +15,14 @@ public class Main {
     private static Card mainCard = new Card("main","main"); // a card object to access to the methods of the Card class.
     private static Player player1; // the human player.
     private static Player winner;// the winner player. it is null until on of the players wins the game.
+
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     * @throws IOException          the io exception
+     * @throws InterruptedException the interrupted exception
+     */
     public static void main(String[] args) throws IOException, InterruptedException {
         int display = new ProcessBuilder("cmd", "/c", "color", "00").inheritIO().start().waitFor();
         System.out.print(display);
@@ -156,13 +165,20 @@ public class Main {
         }
 
     }
+
+    /**
+     * Gets winner.
+     *
+     * @return the winner
+     */
     public static Player getWinner() {
         return winner;
     }
 
     /**
      * prints the direction of the game and players and the number of the cards remain + the player's turn on the top of the screen.
-     * @param player
+     *
+     * @param player the player
      */
     public static void mainPart(Player player)
     {

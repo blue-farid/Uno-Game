@@ -30,7 +30,8 @@ public class Desk {
 
     /**
      * add the card to desk.
-     * @param card
+     *
+     * @param card the card
      */
     public void addCardOnDesk(Card card)
     {
@@ -105,14 +106,30 @@ public class Desk {
         System.out.println("************************************");
     }
 
+    /**
+     * Gets desk.
+     *
+     * @return the desk
+     */
     public Card getDesk()
     {
         return Config.cardsOnDesk.get(Config.cardsOnDesk.size() - 1);
     }
+
+    /**
+     * Gets direction.
+     *
+     * @return the direction
+     */
     public int getDirection() {
         return direction;
     }
 
+    /**
+     * Direction to string.
+     *
+     * @return the string
+     */
     public String directionToString()
     {
         if (direction == 0)
@@ -121,6 +138,12 @@ public class Desk {
             return "anticlockwise";
     }
 
+    /**
+     * Direction to string.
+     *
+     * @param x the x
+     * @return the string
+     */
     public String directionToString(int x)
     {
         if (direction == 0)
@@ -128,6 +151,12 @@ public class Desk {
         else
             return "             ";
     }
+
+    /**
+     * Sets direction.
+     *
+     * @param direction the direction
+     */
     public void setDirection(int direction) {
         this.direction = direction;
     }
