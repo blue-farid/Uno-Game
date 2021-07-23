@@ -253,9 +253,24 @@ public class GamePlay{
         if (move.equals("2"))
         {
             if (!(gameIsOver(player))) {
-                choose = random.nextInt(Config.players.size());
-                while (player.equals(Config.players.get(choose)))
-                    choose = random.nextInt(Config.players.size());
+                /**
+                 * random decision.
+                 * @deprecated
+                 */
+//                choose = random.nextInt(Config.players.size());
+//
+//                while (player.equals(Config.players.get(choose)))
+//                    choose = random.nextInt(Config.players.size());
+                /**
+                 * smart decision.
+                 */
+
+                choose = Config.players.indexOf(Collections.min(Config.playersExceptOne(player), (o1, o2) -> {
+                    int player1CardsSize = o1.getCards().size();
+                    int player2CardSize = o2.getCards().size();
+                    return player1CardsSize-player2CardSize;
+                }));
+
                 Card card = player.getCards().get(random.nextInt(player.getCards().size()));
                 player.getCards().remove(card);
                 Config.players.get(choose).getCards().add(card);

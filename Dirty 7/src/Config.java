@@ -86,4 +86,15 @@ public class Config {
         }
         System.out.println("\b\b\b}");
     }
+
+    public static ArrayList<Player> playersExceptOne(Player player) {
+        ArrayList<Player> playerArrayList = new ArrayList<>();
+
+        for (Player player1: players) {
+            if (!player1.equals(player)) {
+                playerArrayList.add(player1);
+            }
+        }
+        return playerArrayList;
+    }
 }

@@ -36,7 +36,7 @@ public class Card {
     }
 
     /**
-     * creats the cards (52 cards).
+     * creates the cards (52 cards).
      */
     public void creatCards()
     {
